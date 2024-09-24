@@ -1,8 +1,40 @@
-import React from 'react';
+'use client';
+
+import React, { useState, useEffect } from 'react';
 
 const Home: React.FC = () => {
+  const [showWrapper, setShowWrapper] = useState(false);
+
+  const handleScroll = () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    if (scrollTop > 100) {
+      setShowWrapper(true);
+    } else {
+      setShowWrapper(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-800 to-gray-900 text-white flex flex-col items-center p-8">
+    <div className="min-h-screen bg-gray-900 text-white">
+      {/* Seção com o nome "João Paulo" */}
+      <div className="flex items-center justify-center h-screen">
+        <h1 className="text-5xl md:text-7xl font-bold transition-opacity duration-1000">
+          João Paulo
+        </h1>
+      </div>
+
+      {/* Wrapper que aparece conforme o scroll */}
+      <div
+        className={`transition-all duration-1000 ${
+          showWrapper ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+      >
+        <div className="min-h-screen bg-gradient-to-b from-purple-800 to-gray-900 text-white flex flex-col items-center p-8">
       
       {/* Cabeçalho */}
       <header className="mb-12 text-center">
@@ -75,6 +107,8 @@ const Home: React.FC = () => {
           <p>I'm ready to work on exciting projects.</p>
         </div>
 
+      </div>
+    </div>
       </div>
     </div>
   );
