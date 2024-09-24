@@ -38,6 +38,13 @@ const NetworkGraph: React.FC = () => {
         id: node.id,
         label: node.label,
         url: node.url,
+        color: {
+          background: '#7c3aed',  // Roxo para os nós
+          border: '#ffffff'       // Branco para a borda
+        },
+        font: {
+          color: '#ffffff'        // Branco para o texto
+        }
       })),
       edges: edges,
     };
@@ -46,13 +53,12 @@ const NetworkGraph: React.FC = () => {
       nodes: {
         shape: 'dot',
         size: 20,
-        font: {
-          size: 16,
-        },
       },
       edges: {
         width: 2,
-        color: { inherit: true },
+        color: {
+          color: '#ffffff',      // Branco para as conexões
+        },
         smooth: true,
       },
       interaction: {
@@ -65,6 +71,9 @@ const NetworkGraph: React.FC = () => {
           gravitationalConstant: -30000,
           springLength: 150,
         },
+      },
+      layout: {
+        improvedLayout: true,
       },
     };
 
