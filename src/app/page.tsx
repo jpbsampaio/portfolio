@@ -30,27 +30,31 @@ export default function Home() {
 
   return (
     <div className={`min-h-screen ${isDarkMode ? 'bg-gradient-to-b from-gray-900 to-gray-800 text-white' : 'bg-gradient-to-b from-gray-100 to-white text-gray-900'} transition-colors duration-300`}>
-      <div className="fixed top-4 right-4 z-50">
+      <div className="fixed top-4 right-4 z-50 flex items-center space-x-2">
         <Switch
           checked={isDarkMode}
           onCheckedChange={toggleDarkMode}
           className="data-[state=checked]:bg-blue-600 data-[state=unchecked]:bg-gray-200"
         />
-        {isDarkMode ? <Moon className="inline-block ml-2" /> : <Sun className="inline-block ml-2" />}
+        {isDarkMode ? (
+          <Moon className="w-5 h-5" />
+        ) : (
+          <Sun className="w-5 h-5" />
+        )}
       </div>
       <div className="flex items-center justify-center h-screen">
         <h1 
           className={`text-5xl md:text-7xl font-bold transition-all duration-300 ${
             isDarkMode 
               ? 'text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600' 
-              : 'text-blue-600'
+              : 'text-transparent bg-clip-text bg-gradient-to-r from-slate-300 to-blue-400'
           }`}
           style={{
             filter: `blur(${blurAmount}px)`,
             opacity: Math.max(1 - scrollY / 500, 0),
           }}
         >
-          João Paulo
+          Olá, sou João Paulo
         </h1>
       </div>
       <div className="flex items-center justify-center pb-20">
