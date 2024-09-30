@@ -1,16 +1,18 @@
-import React, { useEffect, useRef } from 'react';
-import { Network } from 'vis-network';
-import 'vis-network/styles/vis-network.css';
+"use client"
+
+import React, { useEffect, useRef } from 'react'
+import { Network } from 'vis-network'
+import 'vis-network/styles/vis-network.css'
 
 interface NodeData {
-  id: number;
-  label: string;
-  url: string;
+  id: number
+  label: string
+  url: string
 }
 
 interface EdgeData {
-  from: number;
-  to: number;
+  from: number
+  to: number
 }
 
 const nodes: NodeData[] = [
@@ -18,20 +20,20 @@ const nodes: NodeData[] = [
   { id: 2, label: 'Sobre Mim', url: '/about' },
   { id: 3, label: 'Projetos', url: '/projects' },
   { id: 4, label: 'Contato', url: '/contact' },
-];
+]
 
 const edges: EdgeData[] = [
   { from: 1, to: 2 },
   { from: 1, to: 3 },
-  { from: 2, to: 4 },
-];
+  {from: 1, to: 4 }
+]
 
 const NetworkGraph: React.FC = () => {
-  const networkRef = useRef<HTMLDivElement | null>(null);
+  const networkRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    const container = networkRef.current;
-    if (!container) return;
+    const container = networkRef.current
+    if (!container) return
 
     const data = {
       nodes: nodes.map((node) => ({
@@ -39,59 +41,113 @@ const NetworkGraph: React.FC = () => {
         label: node.label,
         url: node.url,
         color: {
-          background: '#7c3aed',  // Roxo para os nós
-          border: '#ffffff'       // Branco para a borda
+          background: '#3b82f6',
+          border: '#60a5fa',
+          highlight: {
+            background: '#2563eb',
+            border: '#93c5fd'
+          }
         },
         font: {
-          color: '#ffffff'        // Branco para o texto
+          color: '#ffffff',
+          size: 16,
+          face: 'Arial'
         }
       })),
       edges: edges,
-    };
+    }
 
     const options = {
       nodes: {
         shape: 'dot',
-        size: 20,
+        size: 16,
+        borderWidth: 2,
+        shadow: {
+          enabled: true,
+          color: 'rgba(0,0,0,0.2)',
+          size: 5,
+          x: 0,
+          y: 2
+        }
       },
       edges: {
-        width: 2,
+        width: 1.5,
         color: {
-          color: '#ffffff',      // Branco para as conexões
+          color: '#60a5fa',
+          highlight: '#3b82f6',
         },
-        smooth: true,
+        smooth: {
+          type: 'continuous',
+          forceDirection: 'none',
+          roundness: 0.5
+        }
       },
       interaction: {
         hover: true,
-        zoomView: true,
+        zoomView: false,
+        dragView: false,
         dragNodes: true,
       },
       physics: {
+        stabilization: {
+          enabled: true,
+          iterations: 200,
+          fit: true
+        },
         barnesHut: {
-          gravitationalConstant: -30000,
-          springLength: 150,
+          gravitationalConstant: -2000,
+          centralGravity: 0.3,
+          springLength: 95,
+          springConstant: 0.04,
+          damping: 0.09,
         },
       },
       layout: {
         improvedLayout: true,
+        hierarchical: {
+          enabled: false,
+        },
       },
-    };
+    }
 
-    const network = new Network(container, data, options);
+    const network = new Network(container, data, options as any)
 
-    // Tornar os nós clicáveis e redirecionar
     network.on('click', (params) => {
       if (params.nodes.length > 0) {
-        const nodeId = params.nodes[0];
-        const node = nodes.find((n) => n.id === nodeId);
+        const nodeId = params.nodes[0]
+        const node = nodes.find((n) => n.id === nodeId)
         if (node?.url) {
-          window.location.href = node.url;
+          window.location.href = node.url
         }
       }
-    });
-  }, []);
+    })
 
-  return <div ref={networkRef} style={{ height: '600px', width: '100%' }} />;
-};
+    network.once('stabilizationIterationsDone', function() {
+      network.fit({
+        animation: {
+          duration: 1000,
+          easingFunction: 'easeOutQuart'
+        }
+      })
+    })
 
-export default NetworkGraph;
+    const handleResize = () => {
+      network.fit({
+        animation: {
+          duration: 1000,
+          easingFunction: 'easeOutQuart'
+        }
+      })
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
+  return <div ref={networkRef} style={{ height: '100%', width: '100%' }} />
+}
+
+export default NetworkGraph
