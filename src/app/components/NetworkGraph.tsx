@@ -25,10 +25,14 @@ const nodes: NodeData[] = [
 const edges: EdgeData[] = [
   { from: 1, to: 2 },
   { from: 1, to: 3 },
-  {from: 1, to: 4 }
+  { from: 1, to: 4 }
 ]
 
-const NetworkGraph: React.FC = () => {
+interface NetworkGraphProps {
+  isDarkMode: boolean
+}
+
+const NetworkGraph: React.FC<NetworkGraphProps> = ({ isDarkMode }) => {
   const networkRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
@@ -41,15 +45,15 @@ const NetworkGraph: React.FC = () => {
         label: node.label,
         url: node.url,
         color: {
-          background: '#3b82f6',
-          border: '#60a5fa',
+          background: isDarkMode ? '#3b82f6' : '#60a5fa',
+          border: isDarkMode ? '#60a5fa' : '#3b82f6',
           highlight: {
-            background: '#2563eb',
-            border: '#93c5fd'
+            background: isDarkMode ? '#2563eb' : '#93c5fd',
+            border: isDarkMode ? '#93c5fd' : '#2563eb'
           }
         },
         font: {
-          color: '#ffffff',
+          color: isDarkMode ? '#ffffff' : '#1e3a8a',
           size: 16,
           face: 'Arial'
         }
@@ -73,8 +77,8 @@ const NetworkGraph: React.FC = () => {
       edges: {
         width: 1.5,
         color: {
-          color: '#60a5fa',
-          highlight: '#3b82f6',
+          color: isDarkMode ? '#60a5fa' : '#3b82f6',
+          highlight: isDarkMode ? '#3b82f6' : '#2563eb',
         },
         smooth: {
           type: 'continuous',
@@ -145,7 +149,7 @@ const NetworkGraph: React.FC = () => {
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  }, [])
+  }, [isDarkMode])
 
   return <div ref={networkRef} style={{ height: '100%', width: '100%' }} />
 }
