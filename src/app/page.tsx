@@ -26,7 +26,7 @@ export default function Home() {
     setIsDarkMode(!isDarkMode)
   }
 
-  const blurAmount = Math.min(scrollY / 10, 10) // Max blur of 10px
+  const blurAmount = Math.min(scrollY / 10, 10)
 
   return (
     <div className={`min-h-screen ${isDarkMode ? 'bg-gradient-to-b from-gray-900 to-gray-800 text-white' : 'bg-gradient-to-b from-gray-100 to-white text-gray-900'} transition-colors duration-300`}>
@@ -54,7 +54,7 @@ export default function Home() {
             opacity: Math.max(1 - scrollY / 500, 0),
           }}
         >
-          Olá, sou João Paulo
+          João Paulo
         </h1>
         <p 
           className={`mt-4 text-xl md:text-2xl transition-all duration-300 ${

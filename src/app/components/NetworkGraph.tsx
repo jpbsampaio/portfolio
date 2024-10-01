@@ -1,43 +1,45 @@
-"use client"
+"use client";
 
-import React, { useEffect, useRef } from 'react'
-import { Network } from 'vis-network'
-import 'vis-network/styles/vis-network.css'
+import React, { useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { Network } from "vis-network";
+import "vis-network/styles/vis-network.css";
 
 interface NodeData {
-  id: number
-  label: string
-  url: string
+  id: number;
+  label: string;
+  url: string;
 }
 
 interface EdgeData {
-  from: number
-  to: number
+  from: number;
+  to: number;
 }
 
 const nodes: NodeData[] = [
-  { id: 1, label: 'Home', url: '/' },
-  { id: 2, label: 'Sobre Mim', url: '/about' },
-  { id: 3, label: 'Projetos', url: '/projects' },
-  { id: 4, label: 'Contato', url: '/contact' },
-]
+  { id: 1, label: "Home", url: "/" },
+  { id: 2, label: "Sobre Mim", url: "/about" },
+  { id: 3, label: "Projetos", url: "/projects" },
+  { id: 4, label: "Experiência", url: "/experience" },
+];
 
 const edges: EdgeData[] = [
   { from: 1, to: 2 },
   { from: 1, to: 3 },
-  { from: 1, to: 4 }
-]
+  { from: 1, to: 4 },
+];
 
 interface NetworkGraphProps {
-  isDarkMode: boolean
+  isDarkMode: boolean;
 }
 
 const NetworkGraph: React.FC<NetworkGraphProps> = ({ isDarkMode }) => {
-  const networkRef = useRef<HTMLDivElement | null>(null)
+  const networkRef = useRef<HTMLDivElement | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
-    const container = networkRef.current
-    if (!container) return
+    const container = networkRef.current;
+    if (!container) return;
 
     const data = {
       nodes: nodes.map((node) => ({
@@ -45,46 +47,46 @@ const NetworkGraph: React.FC<NetworkGraphProps> = ({ isDarkMode }) => {
         label: node.label,
         url: node.url,
         color: {
-          background: isDarkMode ? '#3b82f6' : '#60a5fa',
-          border: isDarkMode ? '#60a5fa' : '#3b82f6',
+          background: isDarkMode ? "#3b82f6" : "#60a5fa",
+          border: isDarkMode ? "#2563eb" : "#3b82f6",
           highlight: {
-            background: isDarkMode ? '#2563eb' : '#93c5fd',
-            border: isDarkMode ? '#93c5fd' : '#2563eb'
-          }
+            background: isDarkMode ? "#2563eb" : "#3b82f6",
+            border: isDarkMode ? "#93c5fd" : "#60a5fa",
+          },
         },
         font: {
-          color: isDarkMode ? '#ffffff' : '#1e3a8a',
+          color: isDarkMode ? "#ffffff" : "#000000",
           size: 16,
-          face: 'Arial'
-        }
+          face: "Arial",
+        },
       })),
       edges: edges,
-    }
+    };
 
     const options = {
       nodes: {
-        shape: 'dot',
+        shape: "dot",
         size: 16,
         borderWidth: 2,
         shadow: {
           enabled: true,
-          color: 'rgba(0,0,0,0.2)',
+          color: "rgba(0,0,0,0.2)",
           size: 5,
           x: 0,
-          y: 2
-        }
+          y: 2,
+        },
       },
       edges: {
         width: 1.5,
         color: {
-          color: isDarkMode ? '#60a5fa' : '#3b82f6',
-          highlight: isDarkMode ? '#3b82f6' : '#2563eb',
+          color: isDarkMode ? "#60a5fa" : "#3b82f6",
+          highlight: isDarkMode ? "#3b82f6" : "#60a5fa",
         },
         smooth: {
-          type: 'continuous',
-          forceDirection: 'none',
-          roundness: 0.5
-        }
+          type: "continuous",
+          forceDirection: "none",
+          roundness: 0.5,
+        },
       },
       interaction: {
         hover: true,
@@ -96,7 +98,7 @@ const NetworkGraph: React.FC<NetworkGraphProps> = ({ isDarkMode }) => {
         stabilization: {
           enabled: true,
           iterations: 200,
-          fit: true
+          fit: true,
         },
         barnesHut: {
           gravitationalConstant: -2000,
@@ -112,46 +114,46 @@ const NetworkGraph: React.FC<NetworkGraphProps> = ({ isDarkMode }) => {
           enabled: false,
         },
       },
-    }
+    };
 
-    const network = new Network(container, data, options as any)
+    const network = new Network(container, data, options as any);
 
-    network.on('click', (params) => {
+    network.on("click", (params) => {
       if (params.nodes.length > 0) {
-        const nodeId = params.nodes[0]
-        const node = nodes.find((n) => n.id === nodeId)
+        const nodeId = params.nodes[0];
+        const node = nodes.find((n) => n.id === nodeId);
         if (node?.url) {
-          window.location.href = node.url
+          router.push(node.url);
         }
       }
-    })
+    });
 
-    network.once('stabilizationIterationsDone', function() {
+    network.once("stabilizationIterationsDone", function () {
       network.fit({
         animation: {
           duration: 1000,
-          easingFunction: 'easeOutQuart'
-        }
-      })
-    })
+          easingFunction: "easeOutQuart",
+        },
+      });
+    });
 
     const handleResize = () => {
       network.fit({
         animation: {
           duration: 1000,
-          easingFunction: 'easeOutQuart'
-        }
-      })
-    }
+          easingFunction: "easeOutQuart",
+        },
+      });
+    };
 
-    window.addEventListener('resize', handleResize)
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [isDarkMode])
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [isDarkMode, router]);
 
-  return <div ref={networkRef} style={{ height: '100%', width: '100%' }} />
-}
+  return <div ref={networkRef} style={{ height: "100%", width: "100%" }} />;
+};
 
-export default NetworkGraph
+export default NetworkGraph;
