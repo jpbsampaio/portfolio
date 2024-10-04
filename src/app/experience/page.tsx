@@ -64,23 +64,30 @@ export default function Experience() {
             opacity: Math.max(1 - scrollY / 600, 0),
           }}
         >
-          Conheça minha jornada profissional
+          Subtitulo generico
         </p>
         <Card className={`w-full max-w-3xl mt-12 ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} rounded-xl shadow-2xl overflow-hidden transition-colors duration-300`}>
           <CardContent className="p-6">
             <div className="space-y-6">
               <ExperienceDropdown
-                title="Banese Labs"
-                company="Desenvolvedor"
-                period="2024 - Presente"
-                description="Desenvolvimento de aplicações web utilizando React, Node.js e MongoDB. Implementação de arquiteturas serverless e integração contínua."
+                title="Banese"
+                company="Programador de Sistemas"
+                period="Jul 2024 - Atual"
+                description="Atuo no desenvolvimento da plataforma de vendas (PDV) e no desenvolvimento de novas funcionalidades para o Banco do Estado de Sergipe."
                 isDarkMode={isDarkMode}
               />
               <ExperienceDropdown
-                title="CGM - Controladoria Geral do Município"
-                company="Estágiario de Desenvolvimento de sistemas"
-                period="2023 - 2024"
-                description="Desenvolvimento de soluções de software para clientes enterprise. Foco em otimização de performance e escalabilidade de sistemas."
+                title="Banese Labs"
+                company="Programador de Sistemas Trainee"
+                period="Dez 2023 - jun 2024"
+                description="Pesquisas e relatórios relacionados a Inteligências Artificiais Generativas; Desenvolvimento de aplicações em modelos de IA Generativa; Testes de ferramentas e modelos."
+                isDarkMode={isDarkMode}
+              />
+              <ExperienceDropdown
+                title="Controladoria Geral do Município (CGM)"
+                company="Estagiário de Desenvolvimento de Sistemas"
+                period="Set 2022 - Nov 2022"
+                description="Idealizei e realizei um rework visual nos sites do portal da transparência do Estado"
                 isDarkMode={isDarkMode}
               />
             </div>
