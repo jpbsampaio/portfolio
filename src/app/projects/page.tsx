@@ -25,7 +25,7 @@ const projects = [
   },
 ]
 
-const ProjectPage: React.FC = () => {
+const Projects: React.FC = () => {
   return (
     <div className="min-h-screen py-12 bg-gradient-to-b from-gray-900 to-gray-800 text-white transition-colors duration-300">
       <div className="container mx-auto px-4">
@@ -63,4 +63,4 @@ const ProjectPage: React.FC = () => {
   )
 }
 
-export default ProjectPage
+export default Projects
