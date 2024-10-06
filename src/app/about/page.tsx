@@ -2,6 +2,9 @@
 
 import React from 'react'
 import { Card, CardHeader, CardContent } from "@/components/ui/card"
+import Image from 'next/image'
+
+const profileImageUrl = '/src/app/public/images/minha-foto.jpg'
 
 const About: React.FC = () => {
   return (
@@ -10,6 +13,40 @@ const About: React.FC = () => {
         <h1 className="text-4xl font-bold text-center mb-12 text-blue-400">
           Sobre Mim
         </h1>
+
+        <div className="flex flex-col md:flex-row items-center md:items-start justify-between mb-16 space-y-8 md:space-y-0">
+          <div className="relative flex-shrink-0">
+            <Image
+              src={profileImageUrl}
+              width={224}
+              height={224}
+              alt="João Paulo"
+              className="w-48 h-48 md:w-56 md:h-56 rounded-full object-cover border-4 border-blue-500 shadow-lg"
+            />
+          </div>
+
+          <div className="md:ml-8 flex flex-col justify-center items-start md:items-start">
+            <Card className="border-none shadow-lg rounded-lg overflow-hidden bg-gray-800 w-full md:w-96">
+              <CardHeader className="p-6">
+                <h2 className="text-2xl font-semibold text-blue-300">
+                  Informações Pessoais
+                </h2>
+              </CardHeader>
+              <CardContent className="p-6 space-y-4">
+                <div className="text-lg text-blue-200">
+                  <span className="font-semibold">Nome:</span> João Paulo
+                </div>
+                <div className="text-lg text-blue-200">
+                  <span className="font-semibold">Localização:</span> São Paulo, Brasil
+                </div>
+                <div className="text-lg text-blue-200">
+                  <span className="font-semibold">Email:</span> joao.paulo@email.com
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
         <div className="space-y-8">
           <Card className="border-none shadow-xl rounded-lg overflow-hidden bg-gray-800">
             <CardHeader className="p-6">
