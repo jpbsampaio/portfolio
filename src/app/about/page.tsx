@@ -4,7 +4,6 @@ import React from 'react'
 import { Card, CardHeader, CardContent } from "@/components/ui/card"
 import Image from 'next/image'
 
-const profileImageUrl = '/src/app/public/images/minha-foto.jpg'
 
 const About: React.FC = () => {
   return (
@@ -17,9 +16,9 @@ const About: React.FC = () => {
         <div className="flex flex-col md:flex-row items-center md:items-start justify-between mb-16 space-y-8 md:space-y-0">
           <div className="relative flex-shrink-0">
             <Image
-              src={profileImageUrl}
-              width={224}
-              height={224}
+              src='/images/joao.jpg'
+              width={1600}
+              height={720}
               alt="João Paulo"
               className="w-48 h-48 md:w-56 md:h-56 rounded-full object-cover border-4 border-blue-500 shadow-lg"
             />
@@ -37,10 +36,10 @@ const About: React.FC = () => {
                   <span className="font-semibold">Nome:</span> João Paulo
                 </div>
                 <div className="text-lg text-blue-200">
-                  <span className="font-semibold">Localização:</span> São Paulo, Brasil
+                  <span className="font-semibold">Localização:</span> Aracaju, Brasil
                 </div>
                 <div className="text-lg text-blue-200">
-                  <span className="font-semibold">Email:</span> joao.paulo@email.com
+                  <span className="font-semibold">Email:</span> jpbsampaio63@gmail.com
                 </div>
               </CardContent>
             </Card>
@@ -56,7 +55,9 @@ const About: React.FC = () => {
             </CardHeader>
             <CardContent className="p-6">
               <p className="text-lg text-blue-200 leading-relaxed">
-                Olá! Meu nome é João Paulo e sou um desenvolvedor Full Stack com paixão por tecnologias de ponta e desenvolvimento de aplicações interativas. Com experiência em React, TypeScript e Node.js, busco sempre aprimorar minhas habilidades e explorar novas soluções. Tenho um forte interesse em inteligência artificial e como ela pode ser integrada para resolver problemas complexos.
+                Olá! Meu nome é João Paulo e sou um desenvolvedor Full Stack com paixão por tecnologias de ponta e desenvolvimento de aplicações interativas.
+                Com experiência em React, TypeScript e Node.js, busco sempre aprimorar minhas habilidades e explorar novas soluções. 
+                Tenho um forte interesse em inteligência artificial e como ela pode ser integrada para resolver problemas complexos.
               </p>
             </CardContent>
           </Card>
@@ -89,7 +90,6 @@ const About: React.FC = () => {
                   <li>Node.js, Express</li>
                   <li>Python, Machine Learning</li>
                   <li>SQL e NoSQL (MySQL, MongoDB)</li>
-                  <li>Git e Controle de Versão</li>
                 </ul>
               </div>
             </CardContent>
